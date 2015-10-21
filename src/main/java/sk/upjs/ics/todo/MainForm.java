@@ -5,7 +5,6 @@
  */
 package sk.upjs.ics.todo;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,8 +20,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        List<Uloha> ulohy = ulohaDao.dajVsetky();        
-        ulohyList.setListData(ulohy.toArray());
+        refresh();
     }
 
     /**
@@ -110,8 +108,7 @@ public class MainForm extends javax.swing.JFrame {
         
         ulohaDao.pridat(uloha);
         
-        List<Uloha> ulohy = ulohaDao.dajVsetky();
-        ulohyList.setListData(ulohy.toArray());
+        refresh();
     }//GEN-LAST:event_pridatButtonActionPerformed
 
     private void OdstranitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OdstranitButtonActionPerformed
@@ -119,10 +116,14 @@ public class MainForm extends javax.swing.JFrame {
         Uloha selectedValue = (Uloha) ulohyList.getSelectedValue();
         ulohaDao.odstranit(selectedValue);
         
-        List<Uloha> ulohy = ulohaDao.dajVsetky();
-        ulohyList.setListData(ulohy.toArray());
+        refresh();
       
     }//GEN-LAST:event_OdstranitButtonActionPerformed
+
+    private void refresh() {
+        List<Uloha> ulohy = ulohaDao.dajVsetky();
+        ulohyList.setListData(ulohy.toArray());
+    }
 
     /**
      * @param args the command line arguments
