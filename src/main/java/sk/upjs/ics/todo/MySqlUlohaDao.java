@@ -28,7 +28,6 @@ public class MySqlUlohaDao implements UlohaDao{
     
     }  
     
-    
     @Override
     public void pridat(Uloha uloha) {
         String sql = "Insert into uloha values(?,?,?)";
@@ -43,7 +42,13 @@ public class MySqlUlohaDao implements UlohaDao{
         return jdbcTemplate.query("select * from uloha order by date",mapper);
         
     }
-    
+
+    @Override
+    public void odstranit(Uloha uloha) {
+        
+        String sql = "DELET FROM uloha WHERE id = ?";
+        jdbcTemplate.update(sql,uloha.getId());
+    }
     
     
 }
