@@ -12,6 +12,24 @@ public class Uloha {
     
     private SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.yyyy");    
 
+    boolean splnena;
+
+    public SimpleDateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(SimpleDateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public boolean isSplnena() {
+        return splnena;
+    }
+
+    public void setSplnena(boolean splnena) {
+        this.splnena = splnena;
+    }
+    
     public Long getId() {
         return id;
     }

@@ -30,8 +30,8 @@ public class MySqlUlohaDao implements UlohaDao{
     
     @Override
     public void pridat(Uloha uloha) {
-        String sql = "Insert into uloha values(?,?,?)";
-        jdbcTemplate.update(sql,null,uloha.getNazov(),uloha.getDate());
+        String sql = "Insert into uloha values(?,?,?,?)";
+        jdbcTemplate.update(sql,null,uloha.getNazov(),uloha.getDate(),uloha.isSplnena());
      //   jdbcTemplate.query(sql, null);
       }
 
