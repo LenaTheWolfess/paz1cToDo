@@ -20,7 +20,7 @@ public class UlohaListCellRenderer extends DefaultListCellRenderer{
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         Component ulohaCompomnent = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus); 
         Uloha uloha = (Uloha) value;
-        if(jeSplnena(uloha) && !isSelected)
+        if(jeSplnena(uloha))
         {
             ulohaCompomnent.setForeground(new Color(0.0f, 0.5f, 0.0f));
         }        
