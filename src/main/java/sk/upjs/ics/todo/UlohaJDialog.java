@@ -148,8 +148,8 @@ public class UlohaJDialog extends javax.swing.JDialog {
             return;
         }
         
-      uloha.setNazov(ulohaDialogTextField.getText());
-      uloha.setDate(terminDialogDatePicker.getDate());
+      uloha.setNazov(nazov);
+      uloha.setDate(date);
       uloha.setSplnena(splnenaCheckBox.isSelected());
       
       ulohaDao.upravit(uloha);
