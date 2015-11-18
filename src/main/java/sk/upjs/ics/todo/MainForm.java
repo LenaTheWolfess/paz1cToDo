@@ -24,6 +24,7 @@ public class MainForm extends javax.swing.JFrame {
     public MainForm() {
         initComponents();
         refresh();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -223,14 +224,18 @@ public class MainForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainForm().setVisible(true);
+                
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

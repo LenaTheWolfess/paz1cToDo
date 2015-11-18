@@ -5,6 +5,9 @@
  */
 package sk.upjs.ics.todo;
 
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author student
@@ -20,6 +23,9 @@ public class UlohaJDialog extends javax.swing.JDialog {
     public UlohaJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -31,19 +37,19 @@ public class UlohaJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ulohaTextField = new javax.swing.JTextField();
+        ulohaDialogTextField = new javax.swing.JTextField();
         ulohaLabel = new javax.swing.JLabel();
         terminLabel = new javax.swing.JLabel();
-        terminDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        terminDialogDatePicker = new org.jdesktop.swingx.JXDatePicker();
         okButton = new javax.swing.JButton();
         stornoButton = new javax.swing.JButton();
         splnenaCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        ulohaTextField.addActionListener(new java.awt.event.ActionListener() {
+        ulohaDialogTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ulohaTextFieldActionPerformed(evt);
+                ulohaDialogTextFieldActionPerformed(evt);
             }
         });
 
@@ -80,9 +86,9 @@ public class UlohaJDialog extends javax.swing.JDialog {
                             .addComponent(terminLabel))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ulohaTextField)
+                            .addComponent(ulohaDialogTextField)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(terminDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                                .addComponent(terminDialogDatePicker, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(splnenaCheckBox)
                                 .addGap(17, 17, 17))))
@@ -98,12 +104,12 @@ public class UlohaJDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ulohaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ulohaDialogTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ulohaLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(terminLabel)
-                    .addComponent(terminDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(terminDialogDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(splnenaCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -115,13 +121,35 @@ public class UlohaJDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ulohaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulohaTextFieldActionPerformed
+    private void ulohaDialogTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulohaDialogTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ulohaTextFieldActionPerformed
+    }//GEN-LAST:event_ulohaDialogTextFieldActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-      uloha.setNazov(ulohaTextField.getText());
-      uloha.setDate(terminDatePicker.getDate());
+      
+        
+        String nazov = ulohaDialogTextField.getText();
+        
+        if(nazov.trim().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this,"Nazov je povinny ");
+            return;
+        }
+        
+        Date date = terminDialogDatePicker.getDate();
+        if(date==null)
+        {
+            date=new Date();
+            
+        }
+        if(date.before(new Date()))
+        {
+            JOptionPane.showMessageDialog(this,"Zadal si neplatny datum","Chyba",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+      uloha.setNazov(ulohaDialogTextField.getText());
+      uloha.setDate(terminDialogDatePicker.getDate());
       uloha.setSplnena(splnenaCheckBox.isSelected());
       
       ulohaDao.upravit(uloha);
@@ -179,16 +207,19 @@ public class UlohaJDialog extends javax.swing.JDialog {
     private javax.swing.JButton okButton;
     private javax.swing.JCheckBox splnenaCheckBox;
     private javax.swing.JButton stornoButton;
-    private org.jdesktop.swingx.JXDatePicker terminDatePicker;
+    private org.jdesktop.swingx.JXDatePicker terminDialogDatePicker;
     private javax.swing.JLabel terminLabel;
+    private javax.swing.JTextField ulohaDialogTextField;
     private javax.swing.JLabel ulohaLabel;
-    private javax.swing.JTextField ulohaTextField;
     // End of variables declaration//GEN-END:variables
 
     void nastav(Uloha oznacenaUloha) {
         uloha = oznacenaUloha;
-        ulohaTextField.setText(oznacenaUloha.getNazov());
-        terminDatePicker.setDate(oznacenaUloha.getDate());
+        
+        
+        
+        ulohaDialogTextField.setText(oznacenaUloha.getNazov());
+        terminDialogDatePicker.setDate(oznacenaUloha.getDate());
         splnenaCheckBox.setSelected(oznacenaUloha.isSplnena());
         this.repaint();      
     }
